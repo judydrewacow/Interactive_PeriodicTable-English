@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        #zoom-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: auto;
+            border: 2px solid #ccc;
+        }
+        
+        #image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #ptable {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .zoom-controls {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        .zoom-controls button {
+            margin: 2px;
+            padding: 5px 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="zoom-controls">
+        <button id="reset-size"></button>
+    </div>
+    <div id="zoom-container">
+        <div id="image-wrapper">
+            <img id="ptable" src="PT.png" usemap="#ptablemap" alt="Periodic Table" />
+            <div id="scaled-areas"></div>
+        </div>
+    </div>
+  
+    <map name = "ptablemap" id = "ptablemap">
+        <area shape = "rect" coords = "400,1084,871,1540" href = "#" alt = "Hydrogen" data-element = "hydrogen">
+        <area shape = "rect" coords = "405,1564,869,2018" href = "#" alt = "Lithium" data-element = "lithium">
+        <area shape = "rect" coords = "888,1564,1352,2018" href = "#" alt = "Beryllium" data-element = "beryllium">
+        <area shape = "rect" coords = "6666,1569,7130,2023" href = "#" alt = "Carbon" data-element = "carbon">
+        <area shape = "rect" coords = "7626,1569,8090,2023" href = "#" alt = "Oxygen" data-element = "oxygen">
+        <area shape = "rect" coords = "8102,1569,8566,2023" href = "#" alt = "Fluorine" data-element = "fluorine">
+        <area shape = "rect" coords = "8582,1569,9046,2023" href = "#" alt = "Neon" data-element = "neon">
+        <area shape = "rect" coords = "403,2044,867,2498" href = "#" alt = "Sodium" data-element = "sodium">
+        <area shape = "rect" coords = "6179,2050,6643,2504" href = "#" alt = "Aluminum" data-element = "aluminum">
+        <area shape = "rect" coords = "6661,2050,7125,2504" href = "#" alt = "Silicon" data-element = "silicon">
+        <area shape = "rect" coords = "7143,2050,7607,2504" href = "#" alt = "Phosphorous" data-element = "phosphorous">
+        <area shape = "rect" coords = "8099,2050,8563,2504" href = "#" alt = "Chlorine" data-element = "chlorine">
+        <area shape = "rect" coords = "8579,2050,9043,2504" href = "#" alt = "Argon" data-element = "argon">
+        <area shape = "rect" coords = "403,2530,867,2984" href = "#" alt = "Potassium" data-element = "potassium">
+        <area shape = "rect" coords = "882,2530,1346,2984" href = "#" alt = "Calcium" data-element = "calcium">
+        <area shape = "rect" coords = "2329,2530,2793,2984" href = "#" alt = "Vanadium" data-element = "vanadium">
+        <area shape = "rect" coords = "4261,2530,4725,2984" href = "#" alt = "Cobalt" data-element = "cobalt">
+        <area shape = "rect" coords = "4732,2530,5196,2984" href = "#" alt = "Nickel" data-element = "nickel">
+        <area shape = "rect" coords = "5696,2530,6160,2984" href = "#" alt = "Zinc" data-element = "zinc">
+        <area shape = "rect" coords = "6184,2530,6648,2984" href = "#" alt = "Gallium" data-element = "gallium">
+        <area shape = "rect" coords = "6658,2530,7122,2984" href = "#" alt = "Germanium" data-element = "germanium">
+        <area shape = "rect" coords = "7624,2530,8088,2984" href = "#" alt = "Selenium" data-element = "selenium">
+        <area shape = "rect" coords = "8103,2530,8567,2984" href = "#" alt = "Bromine" data-element = "bromine">
+        <area shape = "rect" coords = "8583,2530,9047,2984" href = "#" alt = "Krypton" data-element = "krypton">
+        <area shape = "rect" coords = "889,3007,1353,3461" href = "#" alt = "Strontium" data-element = "strontium">
+        <area shape = "rect" coords = "1849,3007,2313,3461" href = "#" alt = "Zirconium" data-element = "zirconium">
+        <area shape = "rect" coords = "3291,3007,3755,3461" href = "#" alt = "Technetium" data-element = "technetium">
+        <area shape = "rect" coords = "3773,3007,4237,3461" href = "#" alt = "Ruthenium" data-element = "ruthenium">
+        <area shape = "rect" coords = "4260,3007,4724,3461" href = "#" alt = "Rhodium" data-element = "rhodium">
+        <area shape = "rect" coords = "4731,3007,5195,3461" href = "#" alt = "Palladium" data-element = "palladium">
+        <area shape = "rect" coords = "5702,3007,6166,3461" href = "#" alt = "Cadmium" data-element = "cadmium">
+        <area shape = "rect" coords = "7134,3007,7598,3461" href = "#" alt = "Antimony" data-element = "antimony">
+        <area shape = "rect" coords = "8103,3007,8567,3461" href = "#" alt = "Iodine" data-element = "iodine">
+        <area shape = "rect" coords = "8579,3007,9043,3461" href = "#" alt = "Xenon" data-element = "xenon">
+        <area shape = "rect" coords = "407,3492,871,3946" href = "#" alt = "Cesium" data-element = "cesium">
+        <area shape = "rect" coords = "886,3492,1350,3946" href = "#" alt = "Barium" data-element = "barium">
+        <area shape = "rect" coords = "1848,3492,2312,3946" href = "#" alt = "Hafnium" data-element = "hafnium">
+        <area shape = "rect" coords = "3299,3492,3763,3946" href = "#" alt = "Rhenium" data-element = "rhenium">
+        <area shape = "rect" coords = "3769,3492,4233,3946" href = "#" alt = "Osmium" data-element = "osmium">
+        <area shape = "rect" coords = "4255,3484,4719,3938" href = "#" alt = "Iridium" data-element = "iridium">
+        <area shape = "rect" coords = "4728,3492,5192,3946" href = "#" alt = "Platinum" data-element = "platinum">
+        <area shape = "rect" coords = "5696,3492,6160,3946" href = "#" alt = "Mercury" data-element = "mercury">
+        <area shape = "rect" coords = "6179,3500,6643,3954" href = "#" alt = "Thallium" data-element = "thallium">
+        <area shape = "rect" coords = "6662,3500,7126,3954" href = "#" alt = "Lead" data-element = "lead">
+        <area shape = "rect" coords = "7139,3492,7603,3946" href = "#" alt = "Bismuth" data-element = "bismuth">
+        <area shape = "rect" coords = "8100,3500,8564,3954" href = "#" alt = "Astatine" data-element = "astatine">
+        <area shape = "rect" coords = "8593,3492,9057,3946" href = "#" alt = "Radon" data-element = "radon">
+        <area shape = "rect" coords = "5700,3971,6164,4425" href = "#" alt = "Copernicium" data-element = "copernicium">
+        <area shape = "rect" coords = "1844,4590,2308,5044" href = "#" alt = "Lanthanum" data-element = "lanthanum">
+        <area shape = "rect" coords = "2325,4590,2789,5044" href = "#" alt = "Cerium" data-element = "cerium">
+        <area shape = "rect" coords = "3288,4590,3752,5044" href = "#" alt = "Neodymium" data-element = "neodymium">
+        <area shape = "rect" coords = "5220,4590,5684,5044" href = "#" alt = "Gadolinium" data-element = "gadolinium">
+        <area shape = "rect" coords = "5703,4582,6167,5036" href = "#" alt = "Terbium" data-element = "terbium">
+        <area shape = "rect" coords = "6179,4582,6643,5036" href = "#" alt = "Dysprosium" data-element = "dysprosium">
+        <area shape = "rect" coords = "6663,4590,7127,5044" href = "#" alt = "Holmium" data-element = "holmium">
+        <area shape = "rect" coords = "7143,4590,7607,5044" href = "#" alt = "Erbium" data-element = "erbium">
+        <area shape = "rect" coords = "8104,4590,8568,5044" href = "#" alt = "Ytterbium" data-element = "ytterbium">
+        <area shape = "rect" coords = "1845,5075,2309,5529" href = "#" alt = "Actinium" data-element = "actinium">
+        <area shape = "rect" coords = "2329,5075,2793,5529" href = "#" alt = "Thorium" data-element = "thorium">
+        <area shape = "rect" coords = "3289,5075,3753,5529" href = "#" alt = "Uranium" data-element = "uranium">
+        <area shape = "rect" coords = "3781,5075,4245,5529" href = "#" alt = "Neptunium" data-element = "neptunium">
+        <area shape = "rect" coords = "4258,5075,4722,5529" href = "#" alt = "Plutonium" data-element = "plutonium">
+        <area shape = "rect" coords = "5221,5075,5685,5529" href = "#" alt = "Curium" data-element = "curium">
+        <area shape = "rect" coords = "5703,5075,6167,5529" href = "#" alt = "Berkelium" data-element = "berkelium">
+        <area shape = "rect" coords = "6183,5075,6647,5529" href = "#" alt = "Californium" data-element = "californium">
+        <area shape = "rect" coords = "7623,5075,8087,5529" href = "#" alt = "Mendelevium" data-element = "mendelevium">
+        <area shape = "rect" coords = "8107,5075,8571,5529" href = "#" alt = "Nobellium" data-element = "nobellium">
+      </map>
+
+    <script>
+        const ptable = document.getElementById('ptable');
+        const container = document.getElementById('zoom-container');
+        const originalCoords = {};
+        
+        // Store original coordinates
+        document.querySelectorAll('area').forEach(area => {
+            originalCoords[area.dataset.element] = area.coords;
+        });
+
+        function resizeImage() {
+            const containerWidth = container.clientWidth;
+            const containerHeight = container.clientHeight;
+            const imgWidth = ptable.naturalWidth;
+            const imgHeight = ptable.naturalHeight;
+            
+            // Calculate scale factors
+            const scaleX = containerWidth / imgWidth;
+            const scaleY = containerHeight / imgHeight;
+            const scale = Math.min(scaleX, scaleY);
+            
+            // Apply scaling to image
+            ptable.style.width = `${imgWidth * scale}px`;
+            ptable.style.height = `${imgHeight * scale}px`;
+            
+            // Update all area coordinates
+            document.querySelectorAll('area').forEach(area => {
+                const original = originalCoords[area.dataset.element].split(',');
+                const scaled = original.map(coord => Math.round(coord * scale));
+                area.coords = scaled.join(',');
+            });
+        }
+
+        document.getElementById('reset-size').addEventListener('click', () => {
+            resizeImage();
+        });
+
+        // Initialize when image loads
+        ptable.onload = function() {
+            resizeImage();
+            
+            // Handle window resizing
+            window.addEventListener('resize', resizeImage);
+            
+            // Element click handling
+            document.querySelectorAll('area').forEach(area => {
+                area.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const element = this.dataset.element;
+                    const newTab = window.open('', '_blank');
+                    newTab.document.write(`
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <style>
+                                body { 
+                                    font-family: Arial; 
+                                    text-align: center; 
+                                    padding: 0;
+                                    margin: 0;
+                                    height: 100vh;
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                    justify-content: center;
+                                    background: #f5f5f5;
+                                }
+                                .content {
+                                    max-width: 95%;
+                                    max-height: 95vh;
+                                    display: flex;
+                                    flex-direction: column;
+                                    align-items: center;
+                                }
+                                h1 {
+                                    margin: 10px 0;
+                                    color: #333;
+                                }
+                                img { 
+                                    max-width: 100%;
+                                    max-height: 60vh;
+                                    object-fit: contain;
+                                    margin: 10px 0;
+                                }
+                                audio {
+                                    margin: 20px 0;
+                                    width: 80%;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="content">
+                                <img src="images/${element}.png" alt="${element}">
+                                <audio controls autoplay>
+                                    <source src="audio/${element}.mp3" type="audio/mpeg">
+                                </audio>
+                            </div>
+                            <script>
+                                function resizeContent() {
+                                    const img = document.querySelector('img');
+                                    img.style.maxHeight = (window.innerHeight * 0.6) + 'px';
+                                    img.style.maxWidth = (window.innerWidth * 0.9) + 'px';
+                                }
+                                window.addEventListener('resize', resizeContent);
+                                resizeContent();
+                            <\/script>
+                        </body>
+                        </html>
+                    `);
+                });
+            });
+        };
+    </script>
+</body>
+</html>
